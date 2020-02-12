@@ -91,15 +91,18 @@ background-size: 100% 100%;
             day = "Saturday"
         }
         var t = s_since_midnight;
+        console.log(t)
         if (t>=46800){
+            window.tS = true;
             t-=43200;
+        } else{
+            window.tS = false;
         }
         t = s_to_hms(t);
         document.getElementById("htmlcurrent_date").innerHTML = m + "/" + d + "/" + y;
         document.getElementById("htmlcurrent_time").innerHTML = day +"&hairsp; - &hairsp;" + t;
 		return s_since_midnight;
 	}
-
 	function time_bar(start, end, div_id, till_id, remaining_id) { //start is the start of class in seconds, end is end in seconds, duration is duration in seconds, div_id is the progress bar's id (the second div, not the outmost one above)
 		var div = document.getElementById(div_id); //Saves me time typing
 		var duration = end - start;
@@ -107,6 +110,30 @@ background-size: 100% 100%;
 		div.style.width = width + "%"; //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 		var id = setInterval(update, 1); //Makes the next thing run every millisecond :D fancy af
 		function update() { //Function that runs a lot
+		
+    		if (tS == true){
+    		    var dC = new Date();
+                dC = dC.getDay();
+                console.log(dC)
+                dC+=1;
+    		    document.getElementById("menuTitle").innerHTML = "Tomorrow's Lunch"
+    		    document.getElementById("menuTitle").style.textDecoration = "underline";
+    		    document.getElementById("menuTitle").style. = 
+    		    if (dC==1) {
+    		        document.getElementById("lunchMenu").innerHTML = mondayLunch;
+    		    } else if (dC==2){
+    		        document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
+    		    } else if (dC==3){
+    		        document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
+    		    } else if (dC==4){
+    		        document.getElementById("lunchMenu").innerHTML = thursdayLunch;
+    		    } else if (dC==5){
+    		        document.getElementById("lunchMenu").innerHTML = fridayLunch;
+    		    } else {
+    		        document.getElementById("lunchMenu").innerHTML = "No School";
+    		    }
+    		}
+    		console.log(tS);
 			if (width >= 100) { //If statement, common.
 				width = 100; //If width is over 100% terminate the bar
 				div.style.width = width + "%"; //Set bar fullness to 100%
@@ -284,30 +311,33 @@ background-size: 100% 100%;
 	}
 	var div_loop = 0
 	function clearClasses(){
-         var d = new Date();
-         d = d.getDay();
          var divToClear = 'div_name'.concat(div_loop);
          document.getElementById(divToClear).style.display = "none";
          div_loop += 1;
-         divToClear = 'div_name'.concat(div_loop);
-         document.getElementById(divToClear).style.display = "none";
-         div_loop += 1;
-         divToClear = 'div_name'.concat(div_loop);
-         document.getElementById(divToClear).style.display = "none";
-         div_loop += 1;
-         divToClear = 'div_name'.concat(div_loop);
-         document.getElementById(divToClear).style.display = "none";
-         div_loop += 1;
-         divToClear = 'div_name'.concat(div_loop);
-         document.getElementById(divToClear).style.display = "none";
-         div_loop += 1;
-         divToClear = 'div_name'.concat(div_loop);
-         document.getElementById(divToClear).style.display = "none";
-         div_loop += 1;
-         divToClear = 'div_name'.concat(div_loop);
-         if (d !== 5){
+         if (blockCount>1){
+             divToClear = 'div_name'.concat(div_loop);
              document.getElementById(divToClear).style.display = "none";
-             div_loop +=1;
+             div_loop += 1;
+         } if (blockCount>2){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
+         } if (blockCount>3){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
+         } if (blockCount>4){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
+         } if (blockCount>5){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
+         } if (blockCount>6){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
          }
 	}
     
@@ -332,13 +362,14 @@ background-size: 100% 100%;
     mondayType = "normal"
     tuesdayType = "normal"
     wednesdayType = "normal"
-    thursdayType = "normal"
+    thursdayType = "reportCards"
     fridayType = "normal"
     
     
 	function monday(){
 	    if (immersives == true){
 	        create_bar("09:00", "15:00", "Immersives");
+	        blockCount = 1
 	        document.getElementById("lunchMenu").innerHTML = mondayLunch;
 	    } else if (projectWeek == true){
 	        create_bar("08:10", "08:30", "Morning Meeting");
@@ -347,6 +378,7 @@ background-size: 100% 100%;
     		create_bar("11:50", "12:45", "Lunch");
     	    create_bar("12:45", "14:15", cBlock);
     	    create_bar("14:15", "14:45", "Tutorial");
+    	    blockCount = 6
     	    document.getElementById("lunchMenu").innerHTML = mondayLunch;
 	    } else {
     		if (mondayType == "normal"){
@@ -357,6 +389,7 @@ background-size: 100% 100%;
     		    create_bar("12:20", "13:40", cBlock);
     		    create_bar("13:45", "15:05", dBlock);
     		    create_bar("15:05", "15:30", "Tutorial");
+    		    blockCount = 7
     		    document.getElementById("lunchMenu").innerHTML = mondayLunch;
     		} else if (mondayType == "first day"){
     		    create_bar("08:10", "08:35", "Morning Meeting");
@@ -366,6 +399,7 @@ background-size: 100% 100%;
     		    create_bar("11:20", "12:20", "Lunch");
     		    create_bar("12:20", "13:20", cBlock);
     		    create_bar("13:25", "14:25", dBlock);
+    		    blockCount = 7
     		    document.getElementById("lunchMenu").innerHTML = mondayLunch;
     		}
 	    }
@@ -373,6 +407,7 @@ background-size: 100% 100%;
 	function tuesday(){
 	   if (immersives == true){
 	        create_bar("09:00", "15:00", "Immersives");
+	        blockCount = 1
 	        document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
 	    } else if (projectWeek == true){
 	        create_bar("08:10", "08:30", "Morning Meeting");
@@ -381,6 +416,7 @@ background-size: 100% 100%;
     		create_bar("11:50", "12:45", "Lunch");
     		create_bar("12:45", "14:15", fBlock);
     		create_bar("14:15", "14:45", "Tutorial");
+    		blockCount = 6
     		document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
 	    } else {
     		if (tuesdayType == "normal"){
@@ -391,6 +427,7 @@ background-size: 100% 100%;
 		        create_bar("12:00", "12:55", "Lunch");
 		        create_bar("12:55", "14:15", aBlock);
 	        	create_bar("14:15", "14:45", "Tutorial");
+	        	blockCount = 7
 		        document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
     		} else if (tuesdayType == "extended mm"){
     		    create_bar("08:10", "08:50", "Extended Morning Meeting");
@@ -400,6 +437,7 @@ background-size: 100% 100%;
         		create_bar("12:10", "13:00", "Lunch");
         		create_bar("13:00", "14:15", aBlock);
         		create_bar("14:15", "14:45", "Tutorial");
+        		blockCount = 7
         		document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
     		}
 	    }
@@ -407,11 +445,13 @@ background-size: 100% 100%;
 	function wednesday(){
 	    if (immersives == true){
 	        create_bar("09:00", "15:00", "Immersives");
+	        blockCount = 1
 	        document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
 	    } else if (projectWeek == true){
-	        	create_bar("08:35", "11:05", aBlock);
-        		create_bar("11:05", "12:00", "Lunch");
-        		create_bar("12:00", "14:30", bBlock);
+        	create_bar("08:35", "11:05", aBlock);
+    		create_bar("11:05", "12:00", "Lunch");
+    		create_bar("12:00", "14:30", bBlock);
+    		blockCount = 3
     		document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
 	    } else {
     		if (wednesdayType == "normal"){
@@ -422,6 +462,7 @@ background-size: 100% 100%;
         		create_bar("12:20", "13:40", dBlock);
         		create_bar("13:45", "15:05", eBlock);
         		create_bar("15:05", "15:30", "Tutorial");
+        		blockCount = 7
         		document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
     		} else if (wednesdayType == "thanksgiving"){
     		    create_bar("08:10", "09:30", "B Block");
@@ -431,6 +472,7 @@ background-size: 100% 100%;
         		create_bar("12:20", "13:40", "D Block");
         		create_bar("13:45", "15:05", "E Block");
         		create_bar("15:05", "15:30", "Tutorial");
+        		blockCount = 7
         		document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
     		}
 	    }
@@ -438,11 +480,13 @@ background-size: 100% 100%;
 	function thursday(){
 		if (immersives == true){
 	        create_bar("09:00", "15:00", "Immersives");
+	        blockCount = 1
 	        document.getElementById("lunchMenu").innerHTML = thursdayLunch;
 	    } else if (projectWeek == true){
 	        	create_bar("08:35", "11:05", cBlock);
         		create_bar("11:05", "12:00", "Lunch");
         		create_bar("12:00", "14:30", dBlock);
+        		blockCount = 3
     		document.getElementById("lunchMenu").innerHTML = thursdayLunch;
 	    } else {
     		if (thursdayType == "normal"){
@@ -453,6 +497,7 @@ background-size: 100% 100%;
         		create_bar("12:00", "12:55", "Lunch");
         		create_bar("12:55", "14:15", bBlock);
         		create_bar("14:15", "14:45", "Tutorial");
+        		blockCount = 7
         		document.getElementById("lunchMenu").innerHTML = thursdayLunch;
     		} else if (thursdayType == "reportCards"){
     		    create_bar("08:10", "08:30", "Morning Meeting");
@@ -461,6 +506,7 @@ background-size: 100% 100%;
         		create_bar("11:10", "12:05", "Lunch");
         		create_bar("12:05", "13:20", bBlock);
         		create_bar("13:25", "14:45", "Advisory to Review Report Cards")
+        		blockCount = 6
         		document.getElementById("lunchMenu").innerHTML = thursdayLunch;
     		} else if (thursdayType == "gathering"){
     		    create_bar("08:10", "08:30", "Advisory");
@@ -468,7 +514,8 @@ background-size: 100% 100%;
         		create_bar("09:55", "11:10", aBlock);
         		create_bar("11:10", "12:05", "Lunch");
         		create_bar("12:05", "13:20", bBlock);
-        		create_bar("13:25", "14:45", "Gathering") 
+        		create_bar("13:25", "14:45", "Gathering")
+        		blockCount = 6
         		document.getElementById("lunchMenu").innerHTML = thursdayLunch;
     		}
 	    }
@@ -476,11 +523,13 @@ background-size: 100% 100%;
 	function friday(){
 	    if (immersives == true){
 	        create_bar("09:00", "15:00", "Immersives");
+	        blockCount = 1
 	        document.getElementById("lunchMenu").innerHTML = fridayLunch;
 	    } else if (projectWeek == true){
 	        	create_bar("08:35", "11:05", eBlock);
         		create_bar("11:05", "12:00", "Lunch");
-        		create_bar("12:00", "14:30", fBlock)
+        		create_bar("12:00", "14:30", fBlock);
+        		blockCount = 3
     		document.getElementById("lunchMenu").innerHTML = fridayLunch;
 	    } else {
     		if (fridayType == "normal"){
@@ -490,6 +539,7 @@ background-size: 100% 100%;
         		create_bar("11:25", "12:20", "Lunch");
         		create_bar("12:20", "13:40", eBlock);
         		create_bar("13:45", "15:05", fBlock);
+        		blockCount = 6
         		document.getElementById("lunchMenu").innerHTML = fridayLunch;
     		} else if (fridayType == "lateStart"){
     		    create_bar("08:50", "09:10", "Morning Meeting");
@@ -498,6 +548,7 @@ background-size: 100% 100%;
         		create_bar("11:35", "12:45", "Lunch");
         		create_bar("12:50", "13:55", eBlock);
         		create_bar("14:00", "15:05", fBlock);
+        		blockCount = 6
         		document.getElementById("lunchMenu").innerHTML = fridayLunch;
     		} else if (fridayType == "grandfriends"){
     		    create_bar("08:30", "09:00", "Morning Meeting");
@@ -506,6 +557,7 @@ background-size: 100% 100%;
         	    create_bar("11:10", "12:00", eBlock);
         	    create_bar("12:00", "13:10", "Lunch");
         	    create_bar("13:10", "14:00", fBlock); 
+        	    blockCount = 6
         		document.getElementById("lunchMenu").innerHTML = fridayLunch;
     		}
 	    }
@@ -571,6 +623,7 @@ background-size: 100% 100%;
 		    saturday();
 		}
 		setInterval("setup_time()", 1);
+		console.log(blockCount)
 	}
 	
 	function restart() {
@@ -666,7 +719,7 @@ background-size: 100% 100%;
 <br>
 <input id="toggleButton" style="float:right" type="button" onclick="show()" value="Show">
 <span style="float:right"><big>Customize your schedule! &nbsp;</big></span> 
-<span style="float:left"><big><u>Lunch Menu</u></big></span>
+<span style="float:left" value="Lunch Menu" id="menuTitle"><big><u>Lunch Menu</u></big></span>
 <br>
 <br>
 <span type="text" value ="No School" id="lunchMenu" style="float:left;">No School</span>
