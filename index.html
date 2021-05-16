@@ -19,7 +19,18 @@ body {
 
 	<title id="time_left">Bay Clock</title>
 </head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-158317734-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-158317734-1');
+</script>
+
 <meta http-equiv="refresh" content="300" />
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
 
 <body onload="start()">
     
@@ -56,11 +67,11 @@ background-size: 100% 100%;
 
 	var diffDays1=(function(){
 		var oneDay = 24*60*60*1000; // hours minutes seconds milliseconds, makes milliseconds in a day
-		var secondDate = new Date(new Date("May 15, 2020")); //Creates the date on May 16th, 2018
+		var secondDate = new Date(new Date("May 15, 2021")); //Creates the date on May 16th, 2018
 		var firstDate = new Date(); //Creates the date at the current date
 		return Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay))); //Sets diffDays1 to secondDate - first date (gets days till the first day of summer, May 18th)
 	})();
-	document.getElementById("htmldaystillend_date").innerHTML = "Days until May 15th 2020: " + (diffDays1 - 1); //Prints days till May 16th under the current date and time
+	document.getElementById("htmldaystillend_date").innerHTML = "Days until May 15th 2021: " + (diffDays1 - 1); //Prints days till May 16th under the current date and time
 
 
 	function setup_time() {
@@ -116,7 +127,7 @@ background-size: 100% 100%;
                 dC = dC.getDay();
                 console.log(dC)
                 dC+=1;
-    		    document.getElementById("menuTitle").innerHTML = "Tomorrow's Lunch"
+    		    document.getElementById("menuTitle").innerHTML = "Tomorrow's Lunch";
     		    document.getElementById("menuTitle").style.textDecoration = "underline";
     		    document.getElementById("menuTitle").style.fontSize = "large";
     		    if (dC==1) {
@@ -338,15 +349,32 @@ background-size: 100% 100%;
              divToClear = 'div_name'.concat(div_loop);
              document.getElementById(divToClear).style.display = "none";
              div_loop += 1;
+         } if (blockCount>7){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
+         } if (blockCount>8){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
+         } if (blockCount>9){
+             divToClear = 'div_name'.concat(div_loop);
+             document.getElementById(divToClear).style.display = "none";
+             div_loop += 1;
          }
 	}
     
-    mondayLunch = "Whole Wheat Quesadillas with Smoky Pinto Beans and Salsa";
-    tuesdayLunch = "Greek Roasted Chicken or Falafel Patties with Seasonal Sauce and Greek Salad";
-    wednesdayLunch = "Penne Pasta with Marinara Sauce and Seasonal Vegetables";
-    thursdayLunch = "Niman Ranch or Housemade Veggie Burgers with Tri Color Coleslaw & Potato Wedges";
-    fridayLunch = "Chicken or Vegetable Coconut Curry with Aromatic Basmati Rice";
-    
+    mondayLunch = "Up to you!";
+    tuesdayLunch = "Up to you!";
+    wednesdayLunch = "Up to you!";
+    thursdayLunch = "Up to you!";
+    fridayLunch = "Up to you!";
+
+    mondayLunch = "&nbsp;" + mondayLunch
+    tuesdayLunch = "&nbsp;" + tuesdayLunch
+    wednesdayLunch = "&nbsp;" + wednesdayLunch
+    thursdayLunch = "&nbsp;" + thursdayLunch
+    fridayLunch = "&nbsp;" + fridayLunch
     
     /* Options:
     Monday: "normal", "first day"
@@ -356,13 +384,14 @@ background-size: 100% 100%;
     Friday: "normal", "lateStart", "grandfriends"
     */
     
-    var immersives = false;
+    var immersives = true;
     var projectWeek = false;
+    var onlineClass = true;
     
     mondayType = "normal"
     tuesdayType = "normal"
     wednesdayType = "normal"
-    thursdayType = "reportCards"
+    thursdayType = "normal"
     fridayType = "normal"
     
     
@@ -376,10 +405,20 @@ background-size: 100% 100%;
     		create_bar("08:35", "10:05", aBlock);
     		create_bar("10:20", "11:50", bBlock);
     		create_bar("11:50", "12:45", "Lunch");
-    	    create_bar("12:45", "14:15", cBlock);
-    	    create_bar("14:15", "14:45", "Tutorial");
-    	    blockCount = 6
-    	    document.getElementById("lunchMenu").innerHTML = mondayLunch;
+    	    	create_bar("12:45", "14:15", cBlock);
+    	    	create_bar("14:15", "14:45", "Tutorial");
+    	    	blockCount = 6
+    	   	document.getElementById("lunchMenu").innerHTML = mondayLunch;
+	    } else if (onlineClass == true){
+		create_bar("08:45", "10:15", aBlock);
+		create_bar("10:30", "12:00", bBlock);
+		create_bar("12:00", "12:45", "Lunch");
+		create_bar("12:45", "13:10", "Morning Meeting");
+		create_bar("13:10", "14:40", cBlock);
+		create_bar("14:45", "15:15", "Tutorial");
+    	    	blockCount = 6
+    	   	document.getElementById("lunchMenu").innerHTML = mondayLunch;
+		
 	    } else {
     		if (mondayType == "normal"){
     		    create_bar("08:10", "08:30", "Morning Meeting");
@@ -393,7 +432,7 @@ background-size: 100% 100%;
     		    document.getElementById("lunchMenu").innerHTML = mondayLunch;
     		} else if (mondayType == "first day"){
     		    create_bar("08:10", "08:35", "Morning Meeting");
-    	    	create_bar("08:40", "09:10", "Advisory");
+    	    	    create_bar("08:40", "09:10", "Advisory");
     		    create_bar("09:15", "10:15", aBlock);
     		    create_bar("10:20", "11:20", bBlock);
     		    create_bar("11:20", "12:20", "Lunch");
@@ -418,11 +457,19 @@ background-size: 100% 100%;
     		create_bar("14:15", "14:45", "Tutorial");
     		blockCount = 6
     		document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
+	    } else if (onlineClass == true){
+		create_bar("08:45", "10:15", dBlock);
+		create_bar("10:30", "12:00", eBlock);
+		create_bar("12:00", "12:45", "Lunch");
+		create_bar("13:10", "14:40", fBlock);
+		create_bar("14:45", "15:15", "Tutorial");
+    	    	blockCount = 5
+    	   	document.getElementById("lunchMenu").innerHTML = tuesdayLunch;
 	    } else {
     		if (tuesdayType == "normal"){
-    		    create_bar("08:10", "08:30", "Morning Meeting");
-		        create_bar("08:35", "09:55", eBlock);
-		        create_bar("09:55", "10:35", "Clubs");
+    		    	create_bar("08:10", "09:10", "11&12 FCD Presentation");
+			create_bar("08:45", "09:10", "9&10 Class Meeting");
+		        create_bar("09:15", "10:35", eBlock);
 		        create_bar("10:40", "12:00", fBlock);
 		        create_bar("12:00", "12:55", "Lunch");
 		        create_bar("12:55", "14:15", aBlock);
@@ -453,16 +500,21 @@ background-size: 100% 100%;
     		create_bar("12:00", "14:30", bBlock);
     		blockCount = 3
     		document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
+	    } else if (onlineClass == true){
+    		create_bar("08:45", "09:35", "Asynchronous Day");
+    	    	blockCount = 1
+    	   	document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
 	    } else {
     		if (wednesdayType == "normal"){
-    		    create_bar("08:10", "08:30", "Advisory");
-        		create_bar("08:35", "09:55", bBlock);
-        		create_bar("10:05", "11:25", cBlock);
-        		create_bar("11:25", "12:20", "Lunch");
-        		create_bar("12:20", "13:40", dBlock);
-        		create_bar("13:45", "15:05", eBlock);
-        		create_bar("15:05", "15:30", "Tutorial");
-        		blockCount = 7
+    		    	create_bar("08:10", "09:10", "9&10 FCD Presentation");
+			create_bar("08:45", "09:10", "11 Class Meeting");
+        		create_bar("09:15", "10:25", bBlock);
+        		create_bar("10:30", "11:40", cBlock);
+        		create_bar("11:40", "12:35", "Lunch");
+        		create_bar("12:35", "13:45", dBlock);
+        		create_bar("13:50", "15:00", eBlock);
+        		create_bar("15:00", "15:30", "Tutorial");
+        		blockCount = 8
         		document.getElementById("lunchMenu").innerHTML = wednesdayLunch;
     		} else if (wednesdayType == "thanksgiving"){
     		    create_bar("08:10", "09:30", "B Block");
@@ -488,16 +540,28 @@ background-size: 100% 100%;
         		create_bar("12:00", "14:30", dBlock);
         		blockCount = 3
     		document.getElementById("lunchMenu").innerHTML = thursdayLunch;
+	    } else if (onlineClass == true){
+			create_bar("08:45", "10:15", cBlock);
+			create_bar("10:30", "12:00", bBlock);
+			create_bar("12:00", "12:45", "Lunch");
+			create_bar("12:45", "13:10", "Advisory");
+			create_bar("13:10", "14:40", aBlock);
+			create_bar("14:45", "15:15", "Tutorial");
+			blockCount = 6
+    	   	document.getElementById("lunchMenu").innerHTML = thursdayLunch;
 	    } else {
     		if (thursdayType == "normal"){
-    		    create_bar("08:10", "08:30", "Morning Meeting");
-        		create_bar("08:35", "09:55", fBlock);
-        		create_bar("09:55", "10:35", "Clubs");
-        		create_bar("10:40", "12:00", aBlock);
+    		        create_bar("08:35", "09:00", "Advisory");
+        		create_bar("09:00", "10:20", fBlock);
+        		create_bar("10:25", "10:45", aBlock);
+        		create_bar("10:50", "11:30", "Clubs");
+			create_bar("11:35", "11:55", bBlock);
         		create_bar("12:00", "12:55", "Lunch");
-        		create_bar("12:55", "14:15", bBlock);
+        		create_bar("12:55", "13:15", cBlock);
+			create_bar("13:20", "13:40", dBlock);
+			create_bar("13:45", "14:05", eBlock);
         		create_bar("14:15", "14:45", "Tutorial");
-        		blockCount = 7
+        		blockCount = 10
         		document.getElementById("lunchMenu").innerHTML = thursdayLunch;
     		} else if (thursdayType == "reportCards"){
     		    create_bar("08:10", "08:30", "Morning Meeting");
@@ -531,15 +595,33 @@ background-size: 100% 100%;
         		create_bar("12:00", "14:30", fBlock);
         		blockCount = 3
     		document.getElementById("lunchMenu").innerHTML = fridayLunch;
+	    } else if (onlineClass == true){  
+		/*create_bar("08:45", "10:05", dBlock);
+		create_bar("10:15", "11:35", eBlock);
+		create_bar("11:45", "12:05", "Morning Meeting");
+		create_bar("12:05", "13:05", "Lunch");
+		create_bar("13:05", "14:25", fBlock);
+		create_bar("14:25", "15:00", "Break");
+		create_bar("15:00", "17:00", "Clubs/Olympics");
+    	    	blockCount = 7
+    	   	document.getElementById("lunchMenu").innerHTML = tuesdayLunch;*/
+		create_bar("08:45", "10:15", fBlock);
+		create_bar("10:20", "11:50", eBlock);
+		create_bar("11:50", "12:30", "Lunch");
+		create_bar("12:30", "14:00", dBlock);
+		create_bar("14:10", "15:10", "Talent Show!");
+    	    	blockCount = 5
+    	   	document.getElementById("lunchMenu").innerHTML = fridayLunch;
 	    } else {
     		if (fridayType == "normal"){
-    		    create_bar("08:10", "08:30", "Morning Meeting");
-        	    create_bar("08:35", "09:55", cBlock);
-        		create_bar("10:05", "11:25", dBlock);
-        		create_bar("11:25", "12:20", "Lunch");
-        		create_bar("12:20", "13:40", eBlock);
-        		create_bar("13:45", "15:05", fBlock);
-        		blockCount = 6
+    		    	create_bar("09:00", "09:30", aBlock);
+			create_bar("09:40", "10:10", bBlock);
+        	   	create_bar("10:20", "10:50", cBlock);
+        		create_bar("11:00", "11:30", dBlock);
+        		create_bar("11:30", "12:30", "Lunch");
+        		create_bar("12:30", "13:00", eBlock);
+        		create_bar("13:10", "13:40", fBlock);
+        		blockCount = 7
         		document.getElementById("lunchMenu").innerHTML = fridayLunch;
     		} else if (fridayType == "lateStart"){
     		    create_bar("08:50", "09:10", "Morning Meeting");
@@ -563,13 +645,16 @@ background-size: 100% 100%;
 	    }
 	}
 	function saturday(namaste){
-		create_bar("00:00", "24:00", "Saturday");
+  	    create_bar("00:00", "24:00", "Saturday");
+	    blockCount = 1
 	}
 	function sunday(namaste){
 	    create_bar("00:00", "24:00", "Sunday");
+	    blockCount = 1
 	}
 	function summer(namaste){
 	    create_bar("00:00", "24:00", "Summer!");
+	    blockCount = 1
 	}
 	
 	
@@ -608,7 +693,7 @@ background-size: 100% 100%;
 		    fBlock = "F Block";
 		}
 		if (d == 0) {
-    		sunday();
+    			sunday();
 		} else if (d == 1) {
 			monday();
 		} else if (d == 2) {
@@ -622,6 +707,11 @@ background-size: 100% 100%;
 		} else if (d == 6) {
 		    saturday();
 		}
+		document.getElementById("mondayLunch").innerHTML = "&nbsp;" + mondayLunch;
+		document.getElementById("tuesdayLunch").innerHTML = "&nbsp; " + tuesdayLunch;
+		document.getElementById("wednesdayLunch").innerHTML = "&nbsp; " + wednesdayLunch;
+		document.getElementById("thursdayLunch").innerHTML = "&nbsp; " + thursdayLunch;
+		document.getElementById("fridayLunch").innerHTML = "&nbsp; " + fridayLunch;
 		setInterval("setup_time()", 1);
 		console.log(blockCount)
 	}
@@ -667,8 +757,8 @@ background-size: 100% 100%;
 	    if (document.getElementById("dBlock").value == "aaron"){
 	        document.body.style.background = "url('aaron.jpg')";
 	        document.body.style.backgroundSize = "no-repeat";
-	    } else if (document.getElementById("dBlock").value == "harringson"){
-	        document.body.style.background = "url('hacheharrison.JPG')";
+	    } else if (document.getElementById("dBlock").value == "jeffersonbezos"){
+	        document.body.style.background = "url('jeffersonbezos.jpeg')";
 	        document.body.style.backgroundSize = "no-repeat";
 	    } else {
 	        document.body.style.background = "url('white.jpg')";
@@ -692,7 +782,6 @@ background-size: 100% 100%;
 	    	document.getElementById("dBlock").style.display = "none";
 	    	document.getElementById("eBlock").style.display = "none";
 	    	document.getElementById("fBlock").style.display = "none";
-	    	document.getElementById("toggleButton").value = "Show";
 	    } else if (document.getElementById("aBlockTitle").style.display == "none") {
 	        document.getElementById("aBlockTitle").style.display = "initial";
 	        document.getElementById("bBlockTitle").style.display = "initial";
@@ -716,17 +805,20 @@ background-size: 100% 100%;
 
 <br>
 <hr>
-<br>
-<input id="toggleButton" style="float:right" type="button" onclick="show()" value="Show">
-<span style="float:right"><big>Customize your schedule! &nbsp;</big></span> 
+<input type="button"class="button"id="toggleButton"onclick="show()"style="float:right"value="Customize Schedule"></input>
+<span style="float:left">&nbsp;</span>
 <span style="float:left" value="Lunch Menu" id="menuTitle"><big><u>Lunch Menu</u></big></span>
 <br>
 <br>
-<span type="text" value ="No School" id="lunchMenu" style="float:left;">No School</span>
+<span type="text" value ="&nbsp;No School" id="lunchMenu" style="float:left;">No School</span>
+<br>
+<br>
+<input type="button"class="button"id="toggleButton2" style="float:left"value="Week Lunch Menu"></input>
 <br>
 <br>
 <br>
-<span style="color:red;float:left;">Want to stay up to date on morning meeting announcements? Check out the <a href="https://docs.google.com/document/d/1-oEtiQVcyADsh-71Neilmi2U-HHu3GPoipTOuCt5NyA/edit?usp=sharing">Morning Meeting Announcement Digest</a>!</span>
+<br>
+<span style="color:red;float:left;">&nbsp;Want to stay up to date on all things Bay? Check out the <a href="https://sites.google.com/bayschoolsf.org/studentresources/home">Student Life Resources Page</a>!</span>
 
 
 <!-- The Modal -->
@@ -763,6 +855,124 @@ background-size: 100% 100%;
   </div>
 
 </div>
+<!-- The Modal -->
+<div id="myModal2" class="modal2">
+
+  <!-- Modal content -->
+  <div class="modal-content2">
+    <span type="text" value ="No Data" style="float:left;"><strong>Monday:</strong></span>
+    <span type="text" value ="No Data" id="mondayLunch" style="float:left;color:white;"></span>
+    <br>
+    <br>
+    <span type="text" value ="No Data" style="float:left;"><strong>Tuesday:</strong></span>
+    <span type="text" value ="No Data" id="tuesdayLunch" style="float:left;color:white;"></span>
+    <br>
+    <br>
+    <span type="text" value ="No Data" style="float:left;"><strong>Wednesday:</strong></span>
+    <span type="text" value ="No Data" id="wednesdayLunch" style="float:left;color:white;"></span> 
+    <br>
+    <br>
+    <span type="text" value ="No Data" style="float:left;"><strong>Thursday:</strong></span>
+    <span type="text" value ="No Data" id="thursdayLunch" style="float:left;color:white;"></span>
+    <br>
+    <br>
+    <span type="text" value ="No Data" style="float:left;"><strong>Friday:</strong></span>
+    <span type="text" value ="No Data" id="fridayLunch" style="float:left;color:white;"></span>
+    <br>
+    <br>
+    <br>
+    <span class="close2">Close</span>
+  </div>
+
+</div>
+<style>
+    /* The Modal (background) */
+.modal2 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 5; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.button {
+  background-color: #232d61;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+}
+/* Modal Content/Box */
+.modal-content2 {
+  background-color: #5C77FF;
+  margin: 5% auto; /* 15% from the top and centered */
+  padding: 30px;
+  border: 2px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close2 {
+  color: #FFF;
+  font-size: 14px;
+  font-weight: bold;
+  display:table;
+  margin:0 auto;
+}
+
+.close2:hover,
+.close2:focus {
+  color: grey;
+  text-decoration: none;
+  cursor: pointer;
+} 
+/* Modal Content */
+.modal-content2 {
+  position: relative;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.5s
+}
+</style>
+<script>
+    // Get the modal
+var modal2 = document.getElementById("myModal2");
+
+// Get the button that opens the modal
+var btn2 = document.getElementById("toggleButton2");
+
+// Get the <span> element that closes the modal
+var span2 = document.getElementsByClassName("close2")[0];
+// When the user clicks on the button, open the modal
+
+
+// When the user clicks on <span> (x), close the modal
+span2.onclick = function() {
+  modal2.style.display = "none";
+}
+btn2.onclick = function() {
+  modal2.style.display = "block"; 
+} 
+
+// When the user clicks anywhere outside of the modal, close it
+/*window.onclick = function(event) {
+  if (event.target == modal) {
+    show();
+    restart();
+    modal.style.display = "none";
+  }
+} */
+</script>
 
 <style>
     /* The Modal (background) */
